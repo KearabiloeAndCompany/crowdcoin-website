@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% block title %} Home {% endblock %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="logo" href="#"><img src="{% static 'img/logo.png' %}" alt="Logo"></a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#invite" class="scroll">Buy Voucher</a></li>
+            <li><a href="#main-info" class="scroll">How It Works</a></li>
+            <li><a href="#pricing" class="scroll">Pricing</a></li>
+            <li><a href="http://help.crowdcoin.co.za" target="_blank" >FAQ</a></li>
+            <li><a href="https://merchant.crowdcoin.co.za/signup/" target="_blank">Become A Merchant</a></li>
+          </ul>
+        </div><!--/.navbar-collapse -->
+      </div>
+    </div>
+        
+    
+    
+    <section id="invite" class="pad-sm light-gray-bg">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-8 col-sm-offset-2 text-center">
+            <i class="fa fa-envelope-o margin-40"></i>
+            <h2 class="black">{{ request.session.current_purchase.product }} Transfer Details</h2>
+            <br />
+            <p class="black">Quick and Secure - Get your Crowdcoin Voucher by Transfering airtime</p>
+
+            <br />
+        <div class="col-sm-12 ">
+            {% for message in messages%}
+                <div class="alert alert-info">{{message}}</div>
+            {% endfor %}                            
+        </div>    
+            <div class="row">
+              <div class="col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2">
+                <form  action="/"  method="POST">                                                                                                        
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <br/>
+                      <small>Please complete your transfer before:<strong id='voucher_eta'> 23:59 tonight</strong></small>.
+                      <br/>
+                      <small>Your Crowdcoin Voucher will be sent to you via sms once the transaction is completed by you.</small>
+                      <br/><br/>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="text-right wow fadeInUp" data-wow-delay="0.4s">
+                      <a href="{{ previous }}" class="col-sm-12 btn btn-warning btn-lg ">Go Back To Homepage</a>
+                    </div>
+                  </div><!--End Button Row-->     
+                  <input type="hidden" name="screen" value="swap_airtime_transfer_details">                 
+                </form>
+              </div>
+            </div><!--End Form row-->
+          </div>
+        </div>
+      </div>
+    </section>
+                
+
+    <section id="main-info" class="pad-xs">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4 wow fadeIn" data-wow-delay="0.4s">
+                    <hr class="line purple">
+                    <h3>1. Swap or Buy Vouchers</h3>
+                    <p>To get started simply swap your existing money transfer voucher or visit a Crowdcoin Merchant and purchase a Crowdcoin Voucher for an extra R15.</p>
+                </div>
+                <div class="col-sm-4 wow fadeIn" data-wow-delay="0.8s">
+                    <hr  class="line blue">
+                    <h3>2. Make Free Payments</h3>
+                    <p>Use your Crowdcoin Voucher to make payments for your online shopping, settle bills or pay at Merchant Stores. Merchants can also redeem your Crowdcoin voucher and give you cash.</p>
+                </div>
+                <div class="col-sm-4 wow fadeIn" data-wow-delay="1.2s">
+                    <hr  class="line yellow">
+                    <h3>3. Quick and Guaranteed</h3>
+                    <p>Crowdcoin strives to complete your voucher purchase within 60 minutes. Because we want you to spend more time doing the things you love.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+        
+        
+
+    
+	{% include "footer.html" %}
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %} Dashboard{% endblock %}
+
+{% block content %}
+
+    <div class="wrapper">
+    {% include "side-bar.html" %}
+
+	    <div class="main-panel">
+			{% include "top-nav-bar.html" %}
+
+			<div class="content">
+				<div class="container-fluid">
+					<div class="row">
+                        <div class="col-lg-6 col-lg-offset-3 ">
+                            <div class="card card-plain">
+
+    							<div class="content text-center">
+    								<h3 class="category text-rose text-capitalize"><i class="material-icons">error_outline</i> Failed</h3>
+    								<h4 class="card-title">
+                                        Your purchase was unsuccessful.
+                                        <br/>
+                                        Please  try making the purchase again later or <a href="http://help.crowdcoin.co.za" target="_blank">contact support.</a>
+                                    </h4>
+    								<p class="card-content">
+                                    <div class="col-md-12 text-center">
+                                        <a href="/" class="btn btn-link " data-background-color="red" value="Proceed">Back to Dashboard</a>
+                                    </div>
+    								</p>
+    							</div>
+    						</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+			{% include 'footer.html' %}
+		</div>
+
+    </div>
+{% endblock %}

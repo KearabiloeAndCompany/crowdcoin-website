@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block title %} Home {% endblock %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="logo" href="/"><img src="{% static 'img/logo.png' %}" alt="Logo"></a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/#invite" >Buy Voucher</a></li>
+            <li><a href="/#main-info" >How It Works</a></li>
+            <li><a href="/#pricing" >Pricing</a></li>
+            <li><a href="http://help.crowdcoin.co.za" target="_blank" >FAQ</a></li>
+            <li><a href="https://merchant.crowdcoin.co.za/" target="_blank">Become A Merchant</a></li>
+          </ul>
+        </div><!--/.navbar-collapse -->
+      </div>
+    </div>
+
+     <section id="status-header" class="pad-xl">
+      <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-lg-offset-3 ">
+                <div class="text-center">
+                    <div class="card-avatar">
+                        <a href="/">
+                            <img class="img" src="/static/img/logo-trans.png" width="100">
+                        </a>
+                    </div>
+
+                    <div class="content">
+                        <h2 class="">Get Your Banking Details Ready!</h2>
+                        <h3></h3>
+                        <br/>
+                        <h4 class="text white">
+                            We are taking to <strong class="blue">PayFast</strong> to complete your <strong class="blue">R {{ amount }}</strong> bill for <strong class="blue">{{ product }}</strong> via Bank card or Instant EFT payment. You will be automatically redirected back to us once you are done with them. All Good?
+                        </h4>
+                        <br/>
+                        <p class="">
+                            <form action="{{ form.target }}" method="POST">
+                                <p>{{ form.as_p }}</p>
+                                <div class="row">
+                                  <div class="col-md-12 col-sm-12">
+                                    <div class="row">
+                                      <div class="col-xs-6 text-right wow fadeInUp" data-wow-delay="1s">
+                                        <a href="{{ previous }}" class="btn btn-secondary btn-lg ">Cancel Payment</a>
+                                      </div>
+                                      <div class="col-xs-6 text-left wow fadeInUp" data-wow-delay="1.4s">
+                                        <input type="submit" class="btn btn-warning btn-lg" value=" Complete Payment">
+                                      </div>
+                                    </div><!--End Button Row-->  
+                                  </div>
+                                </div>                                
+                            </form>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </section>
+
+    
+
+  {% include "footer.html" %}
+{% endblock %}

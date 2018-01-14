@@ -1,0 +1,291 @@
+{% extends 'base.html' %}
+{% block title %} Home {% endblock %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a  href="#"><img src="{% static 'img/logo.png' %}" alt="Logo"></a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="http://merchant.crowdcoin.co.za/signup" target="_parent">Book A Demo</a></li>
+            <li><a href="#pay-merchant" class="scroll">Pay Merchant</a></li>
+            <li><a href="#be-the-first" class="scroll">Benefits</a></li>
+            <li><a href="#pricing" class="scroll">Pricing</a></li>
+            <li><a href="http://help.crowdcoin.co.za" target="_blank" >Contact Us</a></li>
+            <li><a href="http://merchant.crowdcoin.co.za/" target="_blank">Login</a></li>
+          </ul>
+        </div><!--/.navbar-collapse -->
+      </div>
+    </div>
+        
+    <header>
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-4">
+            <a href="#"><img src="{% static 'img/logo.png' %}" alt="Logo"></a>
+          </div>
+          <div class="col-xs-8 signin text-right  navbar-nav navbar-right">
+            <a href="http://merchant.crowdcoin.co.za/" target="_blank">Already a Merchant? Login</a>
+          </div>
+        </div>
+        
+        <div class="row header-info">
+          <div class="col-sm-10 col-sm-offset-1 text-center">
+            <h2 class="wow fadeIn">Helping <strong class="yellow"> Businesses </strong> Build Secure <strong class="yellow">Airtime </strong>Payments Solutions</h2>
+            <br />
+            <p class="lead wow fadeIn" data-wow-delay="0.5s">Let us help you and your business accept airtime as a payment method.</p>
+            <br />
+              
+            <div class="row">
+              <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
+                <div class="row">
+                  <div class="col-xs-6 text-right wow fadeInUp" data-wow-delay="1s">
+                    <a href="http://merchant.crowdcoin.co.za/signup" target="_parent" class="btn btn-secondary btn-lg ">Book a Demo</a>
+                  </div>
+                  <div class="col-xs-6 text-left wow fadeInUp" data-wow-delay="1.4s">
+                    <a href="#pay-merchant" class="btn btn-warning btn-lg scroll">Pay Merchant</a>
+                  </div>
+                </div><!--End Button Row-->  
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </header>
+
+    
+    <div class="mouse-icon hidden-xs">
+                <div class="scroll"></div>
+            </div>
+
+    
+    <section id="pay-merchant" class="pad-sm light-gray-bg">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-8 col-sm-offset-2 text-center">
+            <h2 class="black">Pay Crowdcoin Merchant</h2>
+            <br />
+            <p class="black">Note: We only accept prepaid Vodacom airtime transfers. </p>
+
+            <br />
+        <div class="col-sm-12 ">
+            {% for message in messages%}
+                <div class="alert alert-info">{{message}}</div>
+            {% endfor %}                            
+        </div>              
+            <div class="row">
+              <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+                <form  action="/process/"  method="POST" >
+                {% csrf_token %}                                                    
+                  <div class="form-group col-sm-12">
+                    <label class="control-label">Merchant:</label>
+                    <!-- country codes (ISO 3166) and Dial codes. -->
+                    <select id="product" name="pocket_to" class="form-control form-control-inverse form-rose">
+                      <option selected="selected" value=None >Please select merchant</option>
+                      {% for merchant in merchants %}
+                        <option value='{{ merchant.default_pocket.tag }}'>{{ merchant.trading_name }}</option>
+                      {% endfor %}                
+                    </select>
+                  </div>       
+
+                  <div class="form-group col-sm-12">
+                  <label class="control-label">Amount </label>
+                    <input type="Number" min="2" max="1000" minlength="2" step="1" required="required" class="form-control" name="amount" id="amount" placeholder="R 2 Min - R 1000 Max. ">
+                  </div>
+                  <div class="form-group col-sm-12">
+                  <label class="control-label">Reference</label>
+                    <input type="text"  minlength="3"  required="required" class="form-control" name="reference" id="reference" placeholder="E.g: SO0123">
+                  </div>                                                                                                                                     
+                  <div class="form-group col-sm-6">
+                  <label class="control-label">Name and Surname</label>
+                    <input type="text"  minlength="5"  required="required" class="form-control" name="item_description" id="item_description" placeholder="E.g: Annah Makgoba">
+                  </div>  
+                  <div class="form-group col-sm-6">
+                  <label class="control-label">Contact Number</label>
+                    <input type="tel" min="10" max="15" minlength="10" step="1" required="required" class="form-control" name="item_name" id="item_name" placeholder="E.g: 0821234567">
+                  </div>                                        
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <h3>AIRTIME REQUIRED: <strong id='total_amount'> 0 </strong> <br/><small></small></h3>
+                    </div>
+                  </div>                                   
+                  <button type="submit" class="btn btn-warning btn-lg">Proceed to Payment Page</button> 
+                  <div class="col-md-12">
+                    <br/>
+                      <small class="text">By continuing you agree to have read and to be bound by Crowdcoin's <a class="text-info" target="_blank" href="//www.crowdcoin.co.za/legals">terms and conditions.</a> <br/></small>
+                      
+                  </div>                    
+                  <input type="hidden" name="screen" value="swap_form_landing">              
+                </form>
+              </div>
+            </div><!--End Form row-->
+
+          </div>
+        </div>
+      </div>
+    </section>
+                
+    <section id="be-the-first" class="pad-lg">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-8 col-sm-offset-2 text-center margin-30 wow fadeIn" data-wow-delay="0.6s">
+            <h2>It All Begins With A Crowdcoin Merchant Account</h2>
+            <p class="lead">All You need is Prepaid Airtime to make payments online and at till points.</p>
+          </div>
+        </div>
+        
+        <div class="iphone wow fadeInUp" data-wow-delay="1s">
+            <img src="{% static 'img/iphone.png' %}">
+        </div>
+      </div>
+    </section>    
+
+    <section id="main-info" class="pad-xl">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4 wow fadeIn" data-wow-delay="0.4s">
+                    <hr  class="line yellow">
+                    <h3>1. Improve Customer Retainment</h3>
+                    <p>Streamline your pipeline with an efficient recurring billing solution. Your customer can save hugely on costly commutes incurred in an effort to honour their agreements with you.  </p>
+                </div>
+                <div class="col-sm-4 wow fadeIn" data-wow-delay="0.8s">
+                    <hr  class="line yellow">
+                    <h3>2. Link Existing Infrastructure</h3>
+                    <p>We can help you integrate airtime payments into your existing billing and IT infrastructure or Even help you ideate and deploy custom solutions.</p>
+                </div>
+                <div class="col-sm-4 wow fadeIn" data-wow-delay="1.2s">
+                    <hr  class="line yellow">
+                    <h3>3. Reduce Collections Risks</h3>
+                    <p>Crowdcoin uses innovative ways to ensure that your business continues providing customers with a superior billing experience while reducing payment collection friction and risks.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section id="pricing" class="pad-sm">
+      <div class="container">
+        <div class="row margin-40">
+          <div class="col-sm-8 col-sm-offset-2 text-center">
+            <h2 class="white">Pricing</h2>
+            <p class="white">We want to give you and your business the best, scalable & reliable airtime payment solution.</p>
+          </div>
+        </div>
+        
+        <div class="row margin-50">
+          
+          <div class="col-sm-4 pricing-container wow fadeInUp" data-wow-delay="1s">
+            <br />
+            <ul class="list-unstyled pricing-table text-center">
+              <li class="headline"><h5 class="white">Personal</h5></li>
+              <li class="price"><div class="amount"><small>Free</small></div></li>
+              <li class="info">2 row section for you package information. You can include all details or icons</li>
+              <li class="features first">No Monthly Limit</li>
+              <li class="features">50% <small>Merchant Fee</small></li>
+              <li class="features">14 Days EFT Payout </li>
+              <li class="features last btn btn-secondary btn-wide"><a href="http://merchant.crowdcoin.co.za/signup">Get Started</a></li>
+            </ul>
+          </div>
+          
+          <div class="col-sm-4 pricing-container wow fadeInUp" data-wow-delay="0.4s">
+            <ul class="list-unstyled pricing-table active text-center">
+              <li class="headline"><h5 class="white">Professional</h5></li>
+              <li class="price"><div class="amount">R850<small>/m</small></div></li>
+              <li class="info">2 row section for you package information. You can include all details or icons</li>
+              <li class="features first">R50K Monthly Limit</li>
+              <li class="features">3.5% <small>Merchant Fee</small></li>
+              <li class="features">7 Days EFT Payout </li>
+              <li class="features">Telephonic Support</li>
+              <li class="features last btn btn-secondary btn-wide"><a href="http://merchant.crowdcoin.co.za/signup">Get Started</a></li>
+            </ul>
+          </div>
+          
+          <div class="col-sm-4 pricing-container wow fadeInUp" data-wow-delay="1.3s">
+            <br />
+            <ul class="list-unstyled pricing-table text-center">
+              <li class="headline"><h5 class="white">Enterprise</h5></li>
+              <li class="price"><div class="amount"><small>Get in touch</small></div></li>
+              <li class="info">2 row section for you package information. You can include all details or icons</li>
+              <li class="features first">Custom Integration</li>
+              <li class="features">Dedicated Hosting</li>
+              <li class="features">Unlimited Transactions</li>
+              <li class="features last btn btn-secondary btn-wide"><a href="http://merchant.crowdcoin.co.za/signup">Get Started</a></li>
+            </ul>
+          </div>
+          
+        </div>
+        
+      </div>
+    </section>
+
+
+
+
+    <section id="press" class="pad-sm">
+      <div class="container">
+        
+        <div class="row margin-10 news-container">
+          <div class="col-sm-10 col-sm-offset-1 col-md-5 wow fadeInLeft" data-wow-delay="0.8s">
+            <a href="http://cliffcentral.com/gareths-guests/kearabiloe-ledwaba/" target="_blank">
+            <img class="news-img " src="{% static 'img/cliffcentral.png' %}" height="100" ="100" alt="Cliff Central">
+            <p class="black">Crowdcoin has the potential to revolutionise how we all think of mobile payments.<br /> 
+            <small><em>Gareth Cliff Show - June 17, 2016</em></small></p>
+            </a>
+          </div>
+          <div class="col-sm-10 col-sm-offset-1 col-md-5  wow fadeInLeft" data-wow-delay="1.2s">
+            <a href="http://gq.co.za/2016/08/phone-just-became-even-essential/" target="_blank">
+            <img class="news-img " src="{% static 'img/gq.png' %}"  height="100"  alt="GQ South Africa">
+            <p class="black">They've opened up the world of pseudo-currency to a much larger audience.<br /> 
+            <small><em>GQ South Africa - August edition, 2016</em></small></p>
+            </a>
+          </div>          
+        </div>
+        
+      </div>
+    </section>    
+
+
+            
+    <!--Pricing-->
+<!--     <section id="pricing" class="pad-lg">
+      <div class="container">
+        <div class="row margin-40">
+          <div class="col-sm-8 col-sm-offset-2 text-center">
+            <h2 class="white">Pricing</h2>
+            <p class="white">Crowdcoin was desgined to simplify lives. We have no hidden fees.</p>
+          </div>
+        </div>
+        
+        <div class="row margin-50">
+
+          <div class="col-sm-6 col-sm-offset-3 pricing-container wow fadeInUp" data-wow-delay="1.4s">
+            <br />
+            <ul class="list-unstyled pricing-table text-center">
+              <li class="headline"><h5 class="white">Merchant</h5></li>
+              <li class="price"><div class="amount">R350<br/><small>Quarterly</small></div></li>
+              <li class="info">Get all the benefits of a Merchant and more. Recommended for E-commerce developers.</li>
+              <li class="features first">Up To R250,000 <br/><small class="yellow">monthly payout</small></li>
+              <li class="features">2% Cashout fee</li>
+              <li class="features">48 Hours Bank Payout</li>
+              <li class="features">API Integration</li>
+              <li class="features">USSD + Web Dashboard</li>              
+              <li class="features last btn btn-secondary btn-wide"><a href="http://merchant.crowdcoin.co.za/signup">Get Started</a></li>
+            </ul>
+          </div>            
+
+      </div>
+    </section>
+ -->
+    
+    
+	{% include "footer.html" %}
+{% endblock %}
