@@ -25,7 +25,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG',False)
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['0.0.0.0','www.crowdcoin.co.za']
 
 CROWDCOIN_API_URL =  os.environ.get('CROWDCOIN_API_URL')
 
@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'www',
     'payfast',
+    'freshdesk'
 ]
 
 MIDDLEWARE = [
