@@ -112,7 +112,7 @@ DATABASES = {
     }
 }
 
-if 'DATABASE_URL' in os.environ:
+if CROWDCOIN_ENV == "PRODUCTION":
     import dj_database_url
     DATABASES = {'default': dj_database_url.config()}
 
