@@ -67,8 +67,6 @@ class LandingView(View):
 
     def get(self, request, *args, **kwargs):
         template_name = "landing.html"
-        logger.info("GET")
-        logger.info(request.session.get('current_purchase'))
         api_response = requests.get(settings.CROWDCOIN_API_URL+'merchants/?display_on_website=1',auth=(settings.CROWDCOIN_DEFAULT_USER, settings.CROWDCOIN_DEFAULT_PASSWORD))
         logger.info(api_response.reason)
         self.context['merchants'] = api_response.json()['objects']

@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG',False)
 
-ALLOWED_HOSTS = ['0.0.0.0','www.crowdcoin.co.za']
+ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS').split(',')
 
 CROWDCOIN_API_URL =  os.environ.get('CROWDCOIN_API_URL')
 
